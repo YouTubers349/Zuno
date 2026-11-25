@@ -22,20 +22,37 @@ body {
     overflow-x: hidden;
 }
 
-/* Главная */
+/* ГЛАВНАЯ */
 
 .container {
-    padding: 20px 18px 110px;
+    padding: 20px 16px 110px;
 }
 
-/* Истории */
+/* ЗАГОЛОВОК И ИСТОРИИ */
+
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.title-row h1 {
+    font-size: 27px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* ИСТОРИИ СПРАВА ОТ ЧАТОВ */
 
 .stories {
     display: flex;
-    gap: 17px;
+    align-items: center;
+    gap: 10px;
     overflow-x: auto;
-    padding: 5px 0 22px;
     scrollbar-width: none;
+    padding: 3px 1px;
 }
 
 .stories::-webkit-scrollbar {
@@ -46,27 +63,24 @@ body {
     flex-shrink: 0;
     text-align: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.25s;
 }
 
 .story:active {
-    transform: scale(0.92);
+    transform: scale(0.9);
 }
 
 .story-circle {
-    width: 65px;
-    height: 65px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    padding: 3px;
+    padding: 2px;
 
-    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.15);
 
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(20px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
 }
 
 .story-avatar {
@@ -74,135 +88,96 @@ body {
     height: 100%;
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.025);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 24px;
+    font-size: 19px;
 }
 
 .story-name {
-    font-size: 12px;
-    color: rgba(255,255,255,0.65);
-    margin-top: 8px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 5px;
 }
 
-/* Заголовок */
-
-.title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.title h1 {
-    font-size: 27px;
-    font-weight: 700;
-}
-
-.new-chat {
-    width: 43px;
-    height: 43px;
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.14);
-
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
-
-    backdrop-filter: blur(20px);
-    transition: 0.3s;
-}
-
-.new-chat:active {
-    transform: scale(0.9);
-}
-
-/* Поиск */
+/* ПОИСК */
 
 .search {
     width: 100%;
-    padding: 16px 18px;
+    padding: 15px 17px;
     margin-bottom: 20px;
 
-    background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.1);
-
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.045);
     border-radius: 18px;
 
     color: white;
     font-size: 15px;
     outline: none;
 
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+
+    transition: 0.3s;
 }
 
 .search::placeholder {
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.35);
 }
 
-/* Чаты */
+.search:focus {
+    border-color: rgba(255,255,255,0.15);
+}
+
+/* ЧАТЫ */
 
 .chat {
     display: flex;
     align-items: center;
 
     padding: 15px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 
     border-radius: 22px;
 
-    background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.012);
+    border: 1px solid rgba(255,255,255,0.045);
 
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
 
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-
-    animation: appear 0.6s ease both;
 
     transition:
         transform 0.25s,
         background 0.25s,
         border-color 0.25s;
-}
 
-.chat::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 15%;
-    width: 70%;
-    height: 1px;
-    background: rgba(255,255,255,0.2);
+    animation: appear 0.6s ease both;
 }
 
 .chat:active {
     transform: translateY(-4px) scale(0.98);
-    background: rgba(255,255,255,0.09);
+    background: rgba(255,255,255,0.045);
+    border-color: rgba(255,255,255,0.12);
 }
 
 .avatar {
-    width: 55px;
-    height: 55px;
+    width: 53px;
+    height: 53px;
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.08);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 23px;
+    font-size: 22px;
     font-weight: bold;
 
     margin-right: 14px;
@@ -216,12 +191,13 @@ body {
 
 .chat-info h3 {
     font-size: 16px;
+    font-weight: 600;
     margin-bottom: 7px;
 }
 
 .chat-info p {
     font-size: 13px;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.4);
 
     white-space: nowrap;
     overflow: hidden;
@@ -230,11 +206,11 @@ body {
 
 .time {
     font-size: 11px;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.3);
     align-self: flex-start;
 }
 
-/* Нижняя панель */
+/* НИЖНЯЯ ПАНЕЛЬ */
 
 .bottom {
     position: fixed;
@@ -250,22 +226,22 @@ body {
 
     border-radius: 25px;
 
-    background: rgba(20,20,20,0.75);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.018);
+    border: 1px solid rgba(255,255,255,0.07);
 
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
 
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
 .nav-button {
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.4);
     text-align: center;
     font-size: 12px;
     cursor: pointer;
 
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .nav-button span {
@@ -279,17 +255,129 @@ body {
     transform: translateY(-3px);
 }
 
-/* Анимация появления */
+/* ОКНО ИСТОРИЙ */
+
+.story-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    background: #000;
+
+    display: none;
+    flex-direction: column;
+
+    animation: appear 0.25s ease;
+}
+
+.story-viewer.show {
+    display: flex;
+}
+
+.story-progress {
+    display: flex;
+    gap: 4px;
+    padding: 15px 12px 8px;
+}
+
+.progress-line {
+    height: 3px;
+    flex: 1;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+}
+
+.progress-line.active {
+    background: white;
+}
+
+.story-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.story-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.story-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-close {
+    color: white;
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.story-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+    text-align: center;
+    padding: 30px;
+
+    touch-action: pan-y;
+}
+
+.story-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.story-controls button {
+    color: white;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+/* АНИМАЦИИ */
 
 @keyframes appear {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 360px) {
+    .title-row h1 {
+        font-size: 23px;
+    }
+
+    .stories {
+        gap: 7px;
+    }
+
+    .story-circle {
+        width: 43px;
+        height: 43px;
     }
 }
 
@@ -306,53 +394,44 @@ body {
 
 <div class="container">
 
-    <!-- ИСТОРИИ -->
+    <!-- ЧАТЫ И ИСТОРИИ В ОДНОЙ СТРОКЕ -->
 
-    <div class="stories">
+    <div class="title-row">
 
-        <div class="story" onclick="openStory('Моя история')">
-            <div class="story-circle">
-                <div class="story-avatar">+</div>
-            </div>
-            <div class="story-name">Моя история</div>
-        </div>
-
-        <div class="story" onclick="openStory('Александр')">
-            <div class="story-circle">
-                <div class="story-avatar">А</div>
-            </div>
-            <div class="story-name">Александр</div>
-        </div>
-
-        <div class="story" onclick="openStory('Мария')">
-            <div class="story-circle">
-                <div class="story-avatar">М</div>
-            </div>
-            <div class="story-name">Мария</div>
-        </div>
-
-        <div class="story" onclick="openStory('Илья')">
-            <div class="story-circle">
-                <div class="story-avatar">И</div>
-            </div>
-            <div class="story-name">Илья</div>
-        </div>
-
-        <div class="story" onclick="openStory('Друзья')">
-            <div class="story-circle">
-                <div class="story-avatar">👥</div>
-            </div>
-            <div class="story-name">Друзья</div>
-        </div>
-
-    </div>
-
-    <!-- ЗАГОЛОВОК -->
-
-    <div class="title">
         <h1>Чаты</h1>
 
-        <button class="new-chat" onclick="newChat()">+</button>
+        <div class="stories">
+
+            <div class="story" onclick="openStory(0)">
+                <div class="story-circle">
+                    <div class="story-avatar">+</div>
+                </div>
+                <div class="story-name">Моя</div>
+            </div>
+
+            <div class="story" onclick="openStory(1)">
+                <div class="story-circle">
+                    <div class="story-avatar">А</div>
+                </div>
+                <div class="story-name">Алекс</div>
+            </div>
+
+            <div class="story" onclick="openStory(2)">
+                <div class="story-circle">
+                    <div class="story-avatar">М</div>
+                </div>
+                <div class="story-name">Мария</div>
+            </div>
+
+            <div class="story" onclick="openStory(3)">
+                <div class="story-circle">
+                    <div class="story-avatar">И</div>
+                </div>
+                <div class="story-name">Илья</div>
+            </div>
+
+        </div>
+
     </div>
 
     <!-- ПОИСК -->
@@ -370,45 +449,37 @@ body {
 
         <div class="chat" onclick="openChat('Александр')">
             <div class="avatar">А</div>
-
             <div class="chat-info">
                 <h3>Александр</h3>
                 <p>Привет! Как дела?</p>
             </div>
-
             <div class="time">12:30</div>
         </div>
 
         <div class="chat" onclick="openChat('Мария')">
             <div class="avatar">М</div>
-
             <div class="chat-info">
                 <h3>Мария</h3>
                 <p>Отправила тебе фотографию</p>
             </div>
-
             <div class="time">11:45</div>
         </div>
 
         <div class="chat" onclick="openChat('Илья')">
             <div class="avatar">И</div>
-
             <div class="chat-info">
                 <h3>Илья</h3>
                 <p>Го сегодня гулять?</p>
             </div>
-
             <div class="time">Вчера</div>
         </div>
 
         <div class="chat" onclick="openChat('Друзья')">
             <div class="avatar">👥</div>
-
             <div class="chat-info">
                 <h3>Друзья</h3>
                 <p>Новые сообщения</p>
             </div>
-
             <div class="time">Вчера</div>
         </div>
 
@@ -437,40 +508,134 @@ body {
 
 </div>
 
+<!-- ПРОСМОТР ИСТОРИЙ -->
+
+<div class="story-viewer" id="storyViewer">
+
+    <div class="story-progress" id="storyProgress"></div>
+
+    <div class="story-header">
+
+        <div class="story-user">
+            <div class="story-user-avatar" id="storyAvatar">А</div>
+            <div id="storyName">Александр</div>
+        </div>
+
+        <button class="story-close" onclick="closeStory()">×</button>
+
+    </div>
+
+    <div class="story-content" id="storyContent">
+        История
+    </div>
+
+    <div class="story-controls">
+        <button onclick="previousStory()">← Назад</button>
+        <button onclick="nextStory()">Далее →</button>
+    </div>
+
+</div>
+
 <script>
 
-function searchChats() {
-    const input = document
-        .getElementById("search")
-        .value.toLowerCase();
+const stories = [
+    {name: "Моя история", avatar: "+", text: "Добавь свою первую историю"},
+    {name: "Александр", avatar: "А", text: "Привет! Это моя история"},
+    {name: "Мария", avatar: "М", text: "Всем привет!"},
+    {name: "Илья", avatar: "И", text: "Отличный день!"}
+];
 
-    document.querySelectorAll(".chat").forEach(chat => {
-        const name = chat
-            .querySelector("h3")
-            .textContent.toLowerCase();
+let currentStory = 0;
 
-        chat.style.display =
-            name.includes(input) ? "flex" : "none";
+function openStory(index) {
+    currentStory = index;
+    renderStory();
+
+    document.getElementById("storyViewer").classList.add("show");
+}
+
+function closeStory() {
+    document.getElementById("storyViewer").classList.remove("show");
+}
+
+function renderStory() {
+    const story = stories[currentStory];
+
+    document.getElementById("storyName").textContent = story.name;
+    document.getElementById("storyAvatar").textContent = story.avatar;
+    document.getElementById("storyContent").textContent = story.text;
+
+    const progress = document.getElementById("storyProgress");
+    progress.innerHTML = "";
+
+    stories.forEach((item, index) => {
+        const line = document.createElement("div");
+        line.className = "progress-line";
+
+        if (index <= currentStory) {
+            line.classList.add("active");
+        }
+
+        progress.appendChild(line);
     });
 }
 
+function nextStory() {
+    if (currentStory < stories.length - 1) {
+        currentStory++;
+        renderStory();
+    } else {
+        closeStory();
+    }
+}
+
+function previousStory() {
+    if (currentStory > 0) {
+        currentStory--;
+        renderStory();
+    }
+}
+
+/* СВАЙПЫ */
+
+let touchStartX = 0;
+
+document.getElementById("storyContent").addEventListener("touchstart", function(event) {
+    touchStartX = event.changedTouches[0].screenX;
+});
+
+document.getElementById("storyContent").addEventListener("touchend", function(event) {
+    const touchEndX = event.changedTouches[0].screenX;
+    const difference = touchEndX - touchStartX;
+
+    if (difference < -50) {
+        nextStory();
+    }
+
+    if (difference > 50) {
+        previousStory();
+    }
+});
+
+/* ПОИСК */
+
+function searchChats() {
+    const input = document.getElementById("search").value.toLowerCase();
+
+    document.querySelectorAll(".chat").forEach(chat => {
+        const name = chat.querySelector("h3").textContent.toLowerCase();
+
+        chat.style.display = name.includes(input) ? "flex" : "none";
+    });
+}
+
+/* ЧАТЫ */
+
 function openChat(name) {
-    alert(
-        "Чат с " + name +
-        "\n\nНастоящие сообщения подключим следующим этапом!"
-    );
+    alert("Чат с " + name + "\n\nНастоящие сообщения подключим следующим этапом!");
 }
 
-function openStory(name) {
-    alert(
-        name +
-        "\n\nИстории подключим следующим этапом!"
-    );
-}
-
-function newChat() {
-    alert("Создание нового чата скоро появится!");
-}
+/* НИЖНЯЯ ПАНЕЛЬ */
 
 function showSection(name, element) {
     document.querySelectorAll(".nav-button").forEach(button => {
@@ -479,7 +644,7 @@ function showSection(name, element) {
 
     element.classList.add("active");
 
-    alert("Раздел: " + name);
+    alert("Раздел: " + name + "\n\nПодключим следующим этапом!");
 }
 
 </script>
