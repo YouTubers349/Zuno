@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#000000">
 <title>Zuno — Мессенджер</title>
 
 <style>
@@ -14,96 +15,149 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #050505;
-    color: white;
+    background: #000;
+    color: #fff;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
+/* Шапка */
+
 header {
-    padding: 25px 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding: 25px 20px;
 }
 
 .logo {
-    font-size: 30px;
-    font-weight: bold;
-    background: linear-gradient(90deg, #a78bfa, #60a5fa);
-    -webkit-background-clip: text;
-    color: transparent;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
 .profile {
-    width: 45px;
-    height: 45px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 21px;
+    backdrop-filter: blur(20px);
 }
 
+/* Главная */
+
 .container {
-    padding: 15px 20px;
+    padding: 15px 20px 110px;
 }
 
 h1 {
-    font-size: 27px;
+    font-size: 28px;
     margin-bottom: 8px;
 }
 
 .subtitle {
-    color: #777;
-    margin-bottom: 25px;
+    color: rgba(255,255,255,0.45);
+    font-size: 14px;
+    margin-bottom: 28px;
 }
+
+/* Поиск */
 
 .search {
     width: 100%;
-    padding: 16px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: white;
-    outline: none;
+    padding: 17px;
     margin-bottom: 25px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.12);
+
+    color: white;
     font-size: 15px;
+    outline: none;
+
+    backdrop-filter: blur(25px);
+    transition: 0.3s;
 }
 
 .search:focus {
-    border-color: #8b5cf6;
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.35);
 }
+
+.search::placeholder {
+    color: rgba(255,255,255,0.35);
+}
+
+/* Стеклянные чаты */
 
 .chat {
     display: flex;
     align-items: center;
-    padding: 16px;
-    margin-bottom: 12px;
-    border-radius: 22px;
+
+    padding: 17px;
+    margin-bottom: 13px;
+
+    border-radius: 24px;
+
     background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.07);
-    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.11);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    position: relative;
+    overflow: hidden;
+
     cursor: pointer;
-    transition: 0.25s;
-    animation: appear 0.6s ease both;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+    animation: appear 0.7s ease both;
+}
+
+/* Блик на стекле */
+
+.chat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    width: 70%;
+    height: 1px;
+
+    background: rgba(255,255,255,0.22);
 }
 
 .chat:active {
-    transform: translateY(-4px) scale(0.98);
+    transform: translateY(-5px) scale(0.98);
     background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.25);
 }
 
 .avatar {
-    width: 55px;
-    height: 55px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #7c3aed, #2563eb);
+
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.16);
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 23px;
+
+    font-size: 22px;
+    font-weight: bold;
+
     margin-right: 15px;
     flex-shrink: 0;
 }
@@ -116,62 +170,107 @@ h1 {
 .chat-info h3 {
     font-size: 16px;
     margin-bottom: 7px;
+    font-weight: 600;
 }
 
 .chat-info p {
-    color: #888;
     font-size: 13px;
+    color: rgba(255,255,255,0.45);
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .time {
-    color: #777;
+    color: rgba(255,255,255,0.35);
     font-size: 11px;
     align-self: flex-start;
 }
+
+/* Нижняя панель */
 
 .bottom {
     position: fixed;
     bottom: 15px;
     left: 15px;
     right: 15px;
+
     display: flex;
     justify-content: space-around;
-    padding: 15px 5px;
-    border-radius: 25px;
-    background: rgba(25,25,25,0.85);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(25px);
+    align-items: center;
+
+    padding: 17px 5px;
+
+    border-radius: 27px;
+
+    background: rgba(15,15,15,0.72);
+    border: 1px solid rgba(255,255,255,0.13);
+
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
 
 .nav-button {
-    color: #777;
+    color: rgba(255,255,255,0.4);
     text-align: center;
     font-size: 12px;
     cursor: pointer;
+
     transition: 0.3s;
 }
 
 .nav-button span {
     display: block;
-    font-size: 21px;
-    margin-bottom: 5px;
+    font-size: 22px;
+    margin-bottom: 6px;
+    filter: grayscale(1);
 }
 
 .nav-button.active {
-    color: #a78bfa;
+    color: white;
 }
+
+.nav-button.active span {
+    filter: grayscale(0);
+}
+
+/* Анимации */
 
 @keyframes appear {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(25px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+.chat:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.chat:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.chat:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.chat:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
     }
 }
 </style>
@@ -192,7 +291,7 @@ h1 {
     <input
         class="search"
         id="search"
-        placeholder="🔍 Поиск чатов..."
+        placeholder="⌕ Поиск чатов..."
         oninput="searchChats()"
     >
 
@@ -237,41 +336,57 @@ h1 {
 </div>
 
 <div class="bottom">
-    <div class="nav-button active" onclick="showSection('Сообщения')">
+
+    <div class="nav-button active" onclick="showSection('Сообщения',this)">
         <span>💬</span>
         Чаты
     </div>
 
-    <div class="nav-button" onclick="showSection('Контакты')">
+    <div class="nav-button" onclick="showSection('Контакты',this)">
         <span>👥</span>
         Контакты
     </div>
 
-    <div class="nav-button" onclick="showSection('Профиль')">
+    <div class="nav-button" onclick="showSection('Профиль',this)">
         <span>👤</span>
         Профиль
     </div>
+
 </div>
 
 <script>
 function searchChats() {
-    const input = document.getElementById("search").value.toLowerCase();
-    const chats = document.querySelectorAll(".chat");
+    const input = document
+        .getElementById("search")
+        .value.toLowerCase();
 
-    chats.forEach(chat => {
-        const name = chat.querySelector("h3").textContent.toLowerCase();
-        chat.style.display = name.includes(input) ? "flex" : "none";
+    document.querySelectorAll(".chat").forEach(chat => {
+        const name = chat
+            .querySelector("h3")
+            .textContent.toLowerCase();
+
+        chat.style.display =
+            name.includes(input) ? "flex" : "none";
     });
 }
 
 function openChat(name) {
-    alert("Чат с " + name + "\n\nНастоящие сообщения подключим следующим этапом!");
+    alert(
+        "Чат с " + name +
+        "\n\nНастоящие сообщения подключим следующим этапом!"
+    );
 }
 
-function showSection(name) {
-    alert("Раздел: " + name + "\n\nЭтот раздел скоро появится!");
+function showSection(name, element) {
+    document.querySelectorAll(".nav-button").forEach(button => {
+        button.classList.remove("active");
+    });
+
+    element.classList.add("active");
+
+    alert("Раздел: " + name);
 }
 </script>
 
 </body>
-          </html>
+</html>
