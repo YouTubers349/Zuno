@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,13 +9,35 @@
 <style>
 *{box-sizing:border-box}
 
+:root{
+ --bg:#080809;
+ --text:#fff;
+ --muted:#aaa69e;
+ --card1:rgba(255,244,210,.14);
+ --card2:rgba(255,255,255,.025);
+ --card3:rgba(255,218,150,.09);
+ --border:rgba(255,245,220,.19);
+ --gold:#d6b878;
+}
+
 body{
  margin:0;
  background:
  radial-gradient(ellipse at 15% 0%,rgba(255,220,150,.12),transparent 45%),
- #080809;
- color:#fff;
+ var(--bg);
+ color:var(--text);
  font-family:Arial,sans-serif;
+ transition:background .25s,color .25s;
+}
+
+body.light{
+ --bg:#e9e5dc;
+ --text:#24221f;
+ --muted:#777168;
+ --card1:rgba(255,255,255,.48);
+ --card2:rgba(255,255,255,.18);
+ --card3:rgba(255,235,195,.28);
+ --border:rgba(255,255,255,.65);
 }
 
 .app{
@@ -41,11 +64,13 @@ h1{font-size:27px;margin:0}
  scrollbar-width:none;
 }
 
+.stories::-webkit-scrollbar{display:none}
+
 .story{
  flex:0 0 48px;
  text-align:center;
  font-size:11px;
- color:#ddd;
+ color:var(--muted);
  cursor:pointer;
 }
 
@@ -55,34 +80,38 @@ h1{font-size:27px;margin:0}
  border-radius:50%;
  display:grid;
  place-items:center;
- background:linear-gradient(135deg,
- rgba(255,244,210,.18),
- rgba(255,255,255,.035),
- rgba(255,218,150,.12));
- border:1px solid rgba(255,245,220,.22);
+ background:linear-gradient(135deg,var(--card1),var(--card2),var(--card3));
+ border:1px solid var(--border);
  font-size:20px;
  margin:0 auto 5px;
  backdrop-filter:blur(12px);
+ overflow:hidden;
+}
+
+.avatar img,.profile-avatar img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
 }
 
 .search{
  width:100%;
  padding:14px 16px;
  border-radius:16px;
- background:rgba(255,255,255,.045);
- border:1px solid rgba(255,245,220,.18);
- color:white;
+ background:linear-gradient(135deg,var(--card1),var(--card2),var(--card3));
+ border:1px solid var(--border);
+ color:var(--text);
  font-size:15px;
  outline:none;
  margin-bottom:20px;
  backdrop-filter:blur(15px);
 }
 
-.search::placeholder{color:#aaa}
+.search::placeholder{color:var(--muted)}
 
 .section-title{
  font-size:13px;
- color:#aaa69e;
+ color:var(--muted);
  margin:0 0 12px 4px;
 }
 
@@ -93,14 +122,12 @@ h1{font-size:27px;margin:0}
  padding:15px;
  margin-bottom:10px;
  border-radius:18px;
- background:linear-gradient(135deg,
- rgba(255,244,210,.14),
- rgba(255,255,255,.025) 48%,
- rgba(255,218,150,.09));
- border:1px solid rgba(255,245,220,.19);
+ background:linear-gradient(135deg,var(--card1),var(--card2) 48%,var(--card3));
+ border:1px solid var(--border);
  backdrop-filter:blur(14px);
  -webkit-backdrop-filter:blur(14px);
  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+ transition:.2s;
 }
 
 .chat:active,.setting-card:active{
@@ -116,7 +143,7 @@ h1{font-size:27px;margin:0}
 
 .last-message,.setting-desc{
  font-size:12px;
- color:#aaa69e;
+ color:var(--muted);
  margin-top:5px;
 }
 
@@ -128,9 +155,10 @@ h1{font-size:27px;margin:0}
  border-radius:14px;
  background:rgba(255,255,255,.07);
  font-size:21px;
+ flex-shrink:0;
 }
 
-.arrow{color:#aaa;font-size:20px}
+.arrow{color:var(--muted);font-size:20px}
 
 .page{display:none}
 .page.active{display:block}
@@ -148,11 +176,13 @@ h1{font-size:27px;margin:0}
  place-items:center;
  font-size:27px;
  background:rgba(255,255,255,.10);
- border:1px solid rgba(255,245,220,.25);
+ border:1px solid var(--border);
+ overflow:hidden;
+ flex-shrink:0;
 }
 
 .profile-name{font-size:18px;font-weight:bold}
-.profile-status{font-size:12px;color:#aaa;margin-top:5px}
+.profile-status{font-size:12px;color:var(--muted);margin-top:5px}
 
 .toggle{
  width:46px;
@@ -177,7 +207,7 @@ h1{font-size:27px;margin:0}
  transition:.2s;
 }
 
-.toggle.on{background:#d6b878}
+.toggle.on{background:var(--gold)}
 .toggle.on:after{left:23px}
 
 .setting-card{cursor:pointer}
@@ -191,11 +221,12 @@ h1{font-size:27px;margin:0}
 
 .back{
  border:0;
- color:white;
+ color:var(--text);
  background:rgba(255,255,255,.08);
  border-radius:12px;
  padding:10px 14px;
- font-size:18px;
+ font-size:22px;
+ cursor:pointer;
 }
 
 .subpage-title h2{font-size:21px;margin:0}
@@ -211,11 +242,8 @@ h1{font-size:27px;margin:0}
  justify-content:center;
  padding:9px;
  border-radius:25px;
- background:linear-gradient(135deg,
- rgba(255,244,210,.17),
- rgba(255,255,255,.035),
- rgba(255,218,150,.11));
- border:1px solid rgba(255,245,220,.23);
+ background:linear-gradient(135deg,var(--card1),var(--card2),var(--card3));
+ border:1px solid var(--border);
  backdrop-filter:blur(18px);
  -webkit-backdrop-filter:blur(18px);
  box-shadow:0 8px 30px rgba(0,0,0,.3),
@@ -232,7 +260,7 @@ h1{font-size:27px;margin:0}
 .nav button{
  border:0;
  background:transparent;
- color:#aaa69e;
+ color:var(--muted);
  font-size:12px;
  padding:6px 20px;
  cursor:pointer;
@@ -244,7 +272,7 @@ h1{font-size:27px;margin:0}
  margin-bottom:4px;
 }
 
-.nav button.active{color:#fff3d9}
+.nav button.active{color:var(--gold)}
 
 .viewer{
  display:none;
@@ -268,6 +296,55 @@ h1{font-size:27px;margin:0}
  color:white;
  font-size:30px;
 }
+
+.field{
+ width:100%;
+ padding:13px;
+ border-radius:12px;
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.07);
+ color:var(--text);
+ outline:none;
+ font-size:15px;
+ margin-top:9px;
+}
+
+.action{
+ width:100%;
+ padding:14px;
+ border-radius:13px;
+ border:1px solid var(--border);
+ background:linear-gradient(135deg,var(--card1),var(--card3));
+ color:var(--text);
+ font-size:15px;
+ cursor:pointer;
+ margin-top:10px;
+}
+
+.notice{
+ text-align:center;
+ font-size:12px;
+ color:var(--muted);
+ margin:12px 0;
+}
+
+body.no-glass .chat,
+body.no-glass .setting-card,
+body.no-glass .profile-card,
+body.no-glass .bottom,
+body.no-glass .search,
+body.no-glass .avatar{
+ backdrop-filter:none;
+ -webkit-backdrop-filter:none;
+}
+
+body.no-glass .chat,
+body.no-glass .setting-card,
+body.no-glass .profile-card,
+body.no-glass .bottom{
+ background:rgba(100,100,100,.18);
+}
+
 </style>
 </head>
 
@@ -275,12 +352,9 @@ h1{font-size:27px;margin:0}
 
 <div class="app">
 
-<!-- ЧАТЫ -->
 <section class="page active" id="chatsPage">
-
 <header>
 <h1>Чаты</h1>
-
 <div class="stories">
 <div class="story" onclick="openStory('Моя история')">
 <div class="avatar">＋</div>Моя
@@ -297,9 +371,7 @@ h1{font-size:27px;margin:0}
 </div>
 </header>
 
-<input class="search" id="search"
-placeholder="Поиск"
-oninput="filterChats()">
+<input class="search" id="search" placeholder="Поиск" oninput="filterChats()">
 
 <div class="section-title">Недавние</div>
 
@@ -330,35 +402,30 @@ oninput="filterChats()">
 </div>
 </section>
 
-<!-- ЗВОНКИ -->
 <section class="page" id="callsPage">
 <header><h1>Звонки</h1></header>
-
 <div class="setting-card">
 <div class="setting-icon">📞</div>
 <div class="setting-info">
 <div class="setting-name">Звонки</div>
-<div class="setting-desc">Здесь будут твои звонки</div>
+<div class="setting-desc">История звонков пока пуста</div>
 </div>
 </div>
 </section>
 
-<!-- НАСТРОЙКИ -->
 <section class="page" id="settingsPage">
-
 <header><h1>Настройки</h1></header>
 
-<div class="profile-card">
-<div class="profile-avatar">👤</div>
+<div class="profile-card" onclick="openSetting('profile')" style="cursor:pointer">
+<div class="profile-avatar" id="mainAvatar">👤</div>
 <div class="setting-info">
-<div class="profile-name">Пользователь Zuno</div>
-<div class="profile-status">Мой профиль</div>
+<div class="profile-name" id="mainName">Пользователь Zuno</div>
+<div class="profile-status" id="mainStatus">Мой профиль</div>
 </div>
 <div class="arrow">›</div>
 </div>
 
 <div class="section-title">АККАУНТ</div>
-
 <div class="setting-card" onclick="openSetting('profile')">
 <div class="setting-icon">👤</div>
 <div class="setting-info">
@@ -369,7 +436,6 @@ oninput="filterChats()">
 </div>
 
 <div class="section-title">ВНЕШНИЙ ВИД</div>
-
 <div class="setting-card" onclick="openSetting('appearance')">
 <div class="setting-icon">🎨</div>
 <div class="setting-info">
@@ -380,18 +446,16 @@ oninput="filterChats()">
 </div>
 
 <div class="section-title">УВЕДОМЛЕНИЯ</div>
-
 <div class="setting-card">
 <div class="setting-icon">🔔</div>
 <div class="setting-info">
 <div class="setting-name">Уведомления</div>
-<div class="setting-desc">Включить уведомления</div>
+<div class="setting-desc">Настройка уведомлений</div>
 </div>
-<button class="toggle on" onclick="toggleSwitch(this)"></button>
+<button class="toggle" data-setting="notifications"></button>
 </div>
 
 <div class="section-title">КОНФИДЕНЦИАЛЬНОСТЬ</div>
-
 <div class="setting-card" onclick="openSetting('privacy')">
 <div class="setting-icon">🔒</div>
 <div class="setting-info">
@@ -402,7 +466,6 @@ oninput="filterChats()">
 </div>
 
 <div class="section-title">ЧАТЫ</div>
-
 <div class="setting-card" onclick="openSetting('chatsettings')">
 <div class="setting-icon">💬</div>
 <div class="setting-info">
@@ -413,7 +476,6 @@ oninput="filterChats()">
 </div>
 
 <div class="section-title">ИНФОРМАЦИЯ</div>
-
 <div class="setting-card" onclick="openSetting('about')">
 <div class="setting-icon">ℹ️</div>
 <div class="setting-info">
@@ -422,10 +484,8 @@ oninput="filterChats()">
 </div>
 <div class="arrow">›</div>
 </div>
-
 </section>
 
-<!-- ВЛОЖЕННЫЕ СТРАНИЦЫ НАСТРОЕК -->
 <section class="page" id="detailPage">
 <div class="subpage-title">
 <button class="back" onclick="backSettings()">‹</button>
@@ -436,7 +496,6 @@ oninput="filterChats()">
 
 </div>
 
-<!-- НИЖНЯЯ ПАНЕЛЬ -->
 <nav class="bottom">
 <div class="nav">
 <button class="active" onclick="showPage('chatsPage',this)">
@@ -457,135 +516,160 @@ oninput="filterChats()">
 </div>
 
 <script>
+const defaults={
+ name:"Пользователь Zuno",
+ status:"Мой профиль",
+ photo:"",
+ notifications:true,
+ dark:true,
+ glass:true,
+ online:true,
+ readReceipts:true,
+ sounds:true,
+ previews:true
+};
+
+let settings={...defaults};
+
+try{
+ const saved=JSON.parse(localStorage.getItem("zunoSettings"));
+ if(saved) settings={...defaults,...saved};
+}catch(e){}
+
+function saveSettings(){
+ localStorage.setItem("zunoSettings",JSON.stringify(settings));
+}
+
+function applySettings(){
+ document.body.classList.toggle("light",!settings.dark);
+ document.body.classList.toggle("no-glass",!settings.glass);
+
+ document.querySelectorAll("[data-setting]").forEach(button=>{
+ const key=button.dataset.setting;
+ button.classList.toggle("on",!!settings[key]);
+ });
+
+ updateProfile();
+}
+
+function updateProfile(){
+ document.getElementById("mainName").textContent=settings.name;
+ document.getElementById("mainStatus").textContent=settings.status;
+
+ const avatar=document.getElementById("mainAvatar");
+ avatar.innerHTML=settings.photo
+ ? '<img src="'+settings.photo+'">'
+ : '👤';
+}
+
 function showPage(id,button){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
 
- document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
- button.classList.add('active');
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
 }
 
-function toggleSwitch(button){
- button.classList.toggle('on');
+function toggleSetting(key,button){
+ settings[key]=!settings[key];
+ saveSettings();
+ applySettings();
 }
+
+document.querySelectorAll("[data-setting]").forEach(button=>{
+ button.addEventListener("click",e=>{
+ e.stopPropagation();
+ toggleSetting(button.dataset.setting,button);
+ });
+});
 
 function filterChats(){
- let q=document.getElementById('search').value.toLowerCase();
+ const q=document.getElementById("search").value.toLowerCase();
 
- document.querySelectorAll('.chat').forEach(chat=>{
- chat.style.display=chat.dataset.name.toLowerCase().includes(q)?'flex':'none';
+ document.querySelectorAll(".chat").forEach(chat=>{
+ chat.style.display=chat.dataset.name.toLowerCase().includes(q)?"flex":"none";
  });
 }
 
 function openStory(name){
- document.getElementById('storyText').innerHTML=
- '<div style="font-size:25px;text-align:center">'+name+'</div>';
- document.getElementById('viewer').classList.add('show');
+ document.getElementById("storyText").innerHTML=
+ '<div style="font-size:25px;text-align:center;color:white">'+name+'</div>';
+ document.getElementById("viewer").classList.add("show");
 }
 
 function closeStory(){
- document.getElementById('viewer').classList.remove('show');
+ document.getElementById("viewer").classList.remove("show");
 }
 
 function backSettings(){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById('settingsPage').classList.add('active');
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById("settingsPage").classList.add("active");
+}
+
+function toggleRow(key,title,description,icon){
+ return `
+ <div class="setting-card">
+ <div class="setting-icon">${icon}</div>
+ <div class="setting-info">
+ <div class="setting-name">${title}</div>
+ <div class="setting-desc">${description}</div>
+ </div>
+ <button class="toggle ${settings[key]?"on":""}" data-setting="${key}"></button>
+ </div>`;
 }
 
 function openSetting(type){
- let title='';
- let content='';
+ let title="";
+ let content="";
 
- if(type==='profile'){
- title='Профиль';
+ if(type==="profile"){
+ title="Профиль";
  content=`
- <div class="setting-card">
- <div class="setting-icon">👤</div>
- <div class="setting-info">
- <div class="setting-name">Фотография профиля</div>
- <div class="setting-desc">Изменить фотографию</div>
+ <div class="profile-card" style="flex-direction:column;text-align:center">
+ <div class="profile-avatar" id="editAvatar" style="width:85px;height:85px">
+ ${settings.photo?'<img src="'+settings.photo+'">':'👤'}
  </div>
- <div class="arrow">›</div>
+ <button class="action" onclick="document.getElementById('photoInput').click()">Изменить фотографию</button>
+ <input type="file" id="photoInput" accept="image/*" hidden onchange="changePhoto(event)">
  </div>
- <div class="setting-card">
- <div class="setting-info">
+
+ <div class="setting-card" style="display:block">
  <div class="setting-name">Имя</div>
- <input placeholder="Твоё имя" style="margin-top:10px;padding:10px;background:rgba(255,255,255,.08);border:1px solid #555;border-radius:10px;color:white;width:100%">
+ <input class="field" id="editName" maxlength="35" value="${escapeHTML(settings.name)}">
  </div>
- </div>
- <div class="setting-card">
- <div class="setting-info">
+
+ <div class="setting-card" style="display:block">
  <div class="setting-name">Статус</div>
- <input placeholder="Напиши о себе" style="margin-top:10px;padding:10px;background:rgba(255,255,255,.08);border:1px solid #555;border-radius:10px;color:white;width:100%">
+ <input class="field" id="editStatus" maxlength="80" value="${escapeHTML(settings.status)}">
  </div>
- </div>`;
+
+ <button class="action" onclick="saveProfile()">Сохранить изменения</button>
+ <div class="notice" id="profileNotice"></div>`;
  }
 
- if(type==='appearance'){
- title='Оформление';
- content=`
- <div class="setting-card">
- <div class="setting-icon">🌙</div>
- <div class="setting-info">
- <div class="setting-name">Тёмная тема</div>
- <div class="setting-desc">Тёмное оформление Zuno</div>
- </div>
- <button class="toggle on" onclick="toggleSwitch(this)"></button>
- </div>
- <div class="setting-card">
- <div class="setting-icon">✨</div>
- <div class="setting-info">
- <div class="setting-name">Стеклянный эффект</div>
- <div class="setting-desc">Прозрачные панели и блики</div>
- </div>
- <button class="toggle on" onclick="toggleSwitch(this)"></button>
- </div>`;
+ if(type==="appearance"){
+ title="Оформление";
+ content=
+ toggleRow("dark","Тёмная тема","Тёмное оформление Zuno","🌙")+
+ toggleRow("glass","Стеклянный эффект","Прозрачные панели и блики","✨");
  }
 
- if(type==='privacy'){
- title='Конфиденциальность';
- content=`
- <div class="setting-card">
- <div class="setting-icon">🟢</div>
- <div class="setting-info">
- <div class="setting-name">Статус онлайн</div>
- <div class="setting-desc">Показывать, когда я в сети</div>
- </div>
- <button class="toggle on" onclick="toggleSwitch(this)"></button>
- </div>
- <div class="setting-card">
- <div class="setting-icon">👁️</div>
- <div class="setting-info">
- <div class="setting-name">Прочитанные сообщения</div>
- <div class="setting-desc">Показывать отметку о прочтении</div>
- </div>
- <button class="toggle on" onclick="toggleSwitch(this)"></button>
- </div>`;
+ if(type==="privacy"){
+ title="Конфиденциальность";
+ content=
+ toggleRow("online","Статус онлайн","Настройка отображения статуса","🟢")+
+ toggleRow("readReceipts","Прочитанные сообщения","Настройка отметок о прочтении","👁️");
  }
 
- if(type==='chatsettings'){
- title='Настройки чатов';
- content=`
- <div class="setting-card">
- <div class="setting-icon">🔔</div>
- <div class="setting-info">
- <div class="setting-name">Звуки сообщений</div>
- <div class="setting-desc">Звук при получении сообщений</div>
- </div>
- <button class="toggle on" onclick="toggleSwitch(this)"></button>
- </div>
- <div class="setting-card">
- <div class="setting-icon">💬</div>
- <div class="setting-info">
- <div class="setting-name">Предпросмотр сообщений</div>
- <div class="setting-desc">Показывать текст сообщений</div>
- </div>
- <button class="toggle on" onclick="toggleSwitch(this)"></button>
- </div>`;
+ if(type==="chatsettings"){
+ title="Настройки чатов";
+ content=
+ toggleRow("sounds","Звуки сообщений","Настройка звука сообщений","🔔")+
+ toggleRow("previews","Предпросмотр сообщений","Показывать текст сообщений","💬");
  }
 
- if(type==='about'){
- title='О приложении';
+ if(type==="about"){
+ title="О приложении";
  content=`
  <div class="profile-card" style="flex-direction:column;text-align:center">
  <div style="font-size:55px">💬</div>
@@ -606,13 +690,73 @@ function openSetting(type){
  </div>`;
  }
 
- document.getElementById('detailTitle').textContent=title;
- document.getElementById('detailContent').innerHTML=content;
+ document.getElementById("detailTitle").textContent=title;
+ document.getElementById("detailContent").innerHTML=content;
 
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById('detailPage').classList.add('active');
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById("detailPage").classList.add("active");
+
+ document.querySelectorAll("#detailContent [data-setting]").forEach(button=>{
+ button.addEventListener("click",()=>{
+ toggleSetting(button.dataset.setting,button);
+ });
+ });
 }
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,char=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+ })[char]);
+}
+
+function saveProfile(){
+ const name=document.getElementById("editName").value.trim();
+ const status=document.getElementById("editStatus").value.trim();
+
+ if(!name){
+ document.getElementById("profileNotice").textContent="Введи имя!";
+ return;
+ }
+
+ settings.name=name;
+ settings.status=status;
+ saveSettings();
+ updateProfile();
+
+ document.getElementById("profileNotice").textContent="Изменения сохранены ✓";
+}
+
+function changePhoto(event){
+ const file=event.target.files[0];
+ if(!file)return;
+
+ if(!file.type.startsWith("image/")){
+ alert("Выбери изображение.");
+ return;
+ }
+
+ if(file.size>2*1024*1024){
+ alert("Фото должно быть меньше 2 МБ.");
+ return;
+ }
+
+ const reader=new FileReader();
+
+ reader.onload=()=>{
+ settings.photo=reader.result;
+ saveSettings();
+ updateProfile();
+
+ document.getElementById("editAvatar").innerHTML=
+ '<img src="'+settings.photo+'">';
+ };
+
+ reader.readAsDataURL(file);
+}
+
+applySettings();
 </script>
 
 </body>
 </html>
+```
