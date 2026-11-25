@@ -4,121 +4,338 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zuno</title>
-<style>
-*{box-sizing:border-box}
-:root{
-  --panel:rgba(255,255,255,.025);
-  --line:rgba(255,255,255,.20);
-  --muted:#92929b
-}
-body{margin:0;background:#080809;color:#f7f7f8;font-family:Arial,sans-serif}
-.app{max-width:600px;margin:auto;min-height:100vh;padding:18px 16px 100px}
-header{display:flex;align-items:center;gap:14px;margin:8px 0 24px}
-h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
-.stories{display:flex;gap:10px;overflow-x:auto;flex:1;scrollbar-width:none}
-.stories::-webkit-scrollbar{display:none}
-.story{flex:0 0 48px;text-align:center;font-size:11px;color:#c5c5cc;cursor:pointer}
-.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#19191d;border:1px solid #303036;font-size:20px;margin:0 auto 5px}
-.story:first-child .avatar{border:1px dashed #777}
-.search{
-  width:100%;
-  padding:14px 16px;
-  border-radius:15px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  color:white;
-  font-size:15px;
-  outline:none;
-  margin-bottom:18px;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  box-shadow:0 0 12px rgba(255,255,255,.025)
-}
-.search::placeholder{color:#777780}
-.section-title{font-size:13px;color:var(--muted);margin:0 0 10px 4px}
-.chat{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  padding:13px 11px;
-  margin-bottom:7px;
-  border-radius:16px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  box-shadow:0 0 12px rgba(255,255,255,.025);
-  cursor:pointer;
-  transition:transform .18s,background .18s,box-shadow .18s
-}
-.chat:active{
-  transform:translateY(-3px);
-  background:rgba(255,255,255,.07);
-  box-shadow:0 0 18px rgba(255,255,255,.06)
-}
-.chat .avatar{width:49px;height:49px;flex-shrink:0;margin:0;background:#202025;border:0}
-.chat-info{min-width:0;flex:1}
-.chat-name{font-size:15px;font-weight:600;margin-bottom:5px}
-.last-message{font-size:13px;color:#92929b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.time{font-size:11px;color:#777780;align-self:flex-start;padding-top:3px}
 
-/* Прозрачная закруглённая нижняя панель */
-.bottom{
-  position:fixed;
-  bottom:10px;
-  left:12px;
-  right:12px;
-  display:flex;
-  justify-content:center;
-  background:rgba(8,8,9,.12);
-  border:1px solid rgba(255,255,255,.22);
-  border-radius:24px;
-  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-  box-shadow:0 5px 24px rgba(0,0,0,.12),0 0 14px rgba(255,255,255,.04);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px)
+<style>
+* {
+  box-sizing: border-box;
 }
-.nav{width:100%;max-width:600px;display:flex;justify-content:space-around}
-.nav button{border:0;background:transparent;color:#85858f;font-size:12px;padding:7px 22px;cursor:pointer}
-.nav button span{display:block;font-size:21px;margin-bottom:4px}
-.nav button.active{color:#fff}
-.viewer{display:none;position:fixed;inset:0;background:#050506;z-index:5;align-items:center;justify-content:center;flex-direction:column}
-.viewer.show{display:flex}
-.story-content{font-size:26px;text-align:center}
-.viewer-close{position:absolute;top:22px;right:22px;background:none;border:0;color:white;font-size:30px}
-.viewer-controls{display:flex;gap:22px;margin-top:28px}
-.viewer-controls button{background:#202025;color:white;border:1px solid #333;border-radius:12px;padding:10px 18px}
+
+:root {
+  --panel: rgba(255, 255, 255, 0.025);
+  --line: rgba(255, 245, 220,  0.18);
+  --muted: #b5b3b0;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(255, 220, 150, 0.10), transparent 45%),
+    #080809;
+  color: #f7f7f8;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  max-width: 600px;
+  margin: auto;
+  min-height: 100vh;
+  padding: 18px 16px 110px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 8px 0 24px;
+}
+
+h1 {
+  font-size: 27px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+}
+
+.stories {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  flex: 1;
+  scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+  display: none;
+}
+
+.story {
+  flex: 0 0 48px;
+  text-align: center;
+  font-size: 11px;
+  color: #ded9ce;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 244, 210, 0.15),
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 218, 150, 0.09)
+  );
+  border: 1px solid rgba(255, 245, 220, 0.20);
+  font-size: 20px;
+  margin: 0 auto 5px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 18px rgba(255, 210, 130, 0.06);
+}
+
+.story:first-child .avatar {
+  border: 1px dashed rgba(255, 245, 220, 0.45);
+}
+
+.search {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 15px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 244, 210, 0.13),
+    rgba(255, 255, 255, 0.025) 50%,
+    rgba(255, 218, 150, 0.08)
+  );
+  border: 1px solid rgba(255, 245, 220, 0.18);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 18px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.search::placeholder {
+  color: #aaa69e;
+}
+
+.section-title {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 10px 4px;
+}
+
+.chat {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 11px;
+  margin-bottom: 7px;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 244, 210, 0.13),
+    rgba(255, 255, 255, 0.025) 48%,
+    rgba(255, 218, 150, 0.08)
+  );
+  border: 1px solid rgba(255, 245, 220, 0.17);
+  cursor: pointer;
+  transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 0 22px rgba(255, 210, 130, 0.035);
+}
+
+.chat:active {
+  transform: translateY(-3px);
+  background: rgba(255, 245, 220, 0.12);
+  box-shadow: 0 5px 25px rgba(255, 210, 130, 0.08);
+}
+
+.chat .avatar {
+  width: 49px;
+  height: 49px;
+  flex-shrink: 0;
+  margin: 0;
+  border: 1px solid rgba(255, 245, 220, 0.13);
+}
+
+.chat-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.chat-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.last-message {
+  font-size: 13px;
+  color: #b2aea6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time {
+  font-size: 11px;
+  color: #aaa69e;
+  align-self: flex-start;
+  padding-top: 3px;
+}
+
+/* Плавающая нижняя панель */
+.bottom {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: center;
+  padding: 9px 10px;
+  border-radius: 25px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 244, 210, 0.16),
+    rgba(255, 255, 255, 0.035) 48%,
+    rgba(255, 218, 150, 0.10)
+  );
+  border: 1px solid rgba(255, 245, 220, 0.22);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 25px rgba(255, 210, 130, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  z-index: 4;
+}
+
+.nav {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav button {
+  border: 0;
+  background: transparent;
+  color: #aaa69e;
+  font-size: 12px;
+  padding: 7px 22px;
+  cursor: pointer;
+}
+
+.nav button span {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 4px;
+}
+
+.nav button.active {
+  color: #fff7e7;
+}
+
+.viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #050506;
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.viewer.show {
+  display: flex;
+}
+
+.story-content {
+  font-size: 26px;
+  text-align: center;
+}
+
+.viewer-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background: none;
+  border: 0;
+  color: white;
+  font-size: 30px;
+}
+
+.viewer-controls {
+  display: flex;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.viewer-controls button {
+  background: #202025;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 10px 18px;
+}
 </style>
 </head>
+
 <body>
 <div class="app">
   <header>
     <h1>Чаты</h1>
+
     <div class="stories">
-      <div class="story" onclick="openStory(0)"><div class="avatar">＋</div>Моя</div>
-      <div class="story" onclick="openStory(1)"><div class="avatar">👨</div>Алекс</div>
-      <div class="story" onclick="openStory(2)"><div class="avatar">👩</div>Мария</div>
-      <div class="story" onclick="openStory(3)"><div class="avatar">🧑</div>Илья</div>
+      <div class="story" onclick="openStory(0)">
+        <div class="avatar">＋</div>Моя
+      </div>
+      <div class="story" onclick="openStory(1)">
+        <div class="avatar">👨</div>Алекс
+      </div>
+      <div class="story" onclick="openStory(2)">
+        <div class="avatar">👩</div>Мария
+      </div>
+      <div class="story" onclick="openStory(3)">
+        <div class="avatar">🧑</div>Илья
+      </div>
     </div>
   </header>
 
-  <input class="search" id="search" placeholder="Поиск" oninput="filterChats()">
+  <input
+    class="search"
+    id="search"
+    placeholder="Поиск"
+    oninput="filterChats()"
+  >
+
   <div class="section-title">Недавние</div>
 
   <div id="chats">
     <div class="chat" data-name="Алекс">
       <div class="avatar">👨</div>
-      <div class="chat-info"><div class="chat-name">Алекс</div><div class="last-message">Привет! Как дела?</div></div>
+      <div class="chat-info">
+        <div class="chat-name">Алекс</div>
+        <div class="last-message">Привет! Как дела?</div>
+      </div>
       <div class="time">12:40</div>
     </div>
+
     <div class="chat" data-name="Мария">
       <div class="avatar">👩</div>
-      <div class="chat-info"><div class="chat-name">Мария</div><div class="last-message">Отправила тебе фото</div></div>
+      <div class="chat-info">
+        <div class="chat-name">Мария</div>
+        <div class="last-message">Отправила тебе фото</div>
+      </div>
       <div class="time">12:15</div>
     </div>
+
     <div class="chat" data-name="Илья">
       <div class="avatar">🧑</div>
-      <div class="chat-info"><div class="chat-name">Илья</div><div class="last-message">Увидимся вечером</div></div>
+      <div class="chat-info">
+        <div class="chat-name">Илья</div>
+        <div class="last-message">Увидимся вечером</div>
+      </div>
       <div class="time">Вчера</div>
     </div>
   </div>
@@ -126,9 +343,15 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
 
 <nav class="bottom">
   <div class="nav">
-    <button class="active" onclick="setTab(this,'Чаты')"><span>▣</span>Чаты</button>
-    <button onclick="setTab(this,'Звонки')"><span>⌕</span>Звонки</button>
-    <button onclick="setTab(this,'Настройки')"><span>⚙</span>Настройки</button>
+    <button class="active" onclick="setTab(this,'Чаты')">
+      <span>▣</span>Чаты
+    </button>
+    <button onclick="setTab(this,'Звонки')">
+      <span>⌕</span>Звонки
+    </button>
+    <button onclick="setTab(this,'Настройки')">
+      <span>⚙</span>Настройки
+    </button>
   </div>
 </nav>
 
@@ -142,37 +365,63 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
 </div>
 
 <script>
-const stories=[
-  {name:"Моя история",text:"Добавь свою историю"},
-  {name:"Алекс",text:"Привет 👋"},
-  {name:"Мария",text:"Хорошего дня ✨"},
-  {name:"Илья",text:"На связи!"}
+const stories = [
+  {name: "Моя история", text: "Добавь свою историю"},
+  {name: "Алекс", text: "Привет 👋"},
+  {name: "Мария", text: "Хорошего дня ✨"},
+  {name: "Илья", text: "На связи!"}
 ];
-let storyIndex=0;
 
-function openStory(i){
-  storyIndex=i;
+let storyIndex = 0;
+
+function openStory(i) {
+  storyIndex = i;
   showStory();
   document.getElementById("viewer").classList.add("show");
 }
-function showStory(){
-  document.getElementById("storyContent").innerHTML=
-    "<div>"+stories[storyIndex].text+"</div><small style='display:block;margin-top:18px;color:#888'>"+stories[storyIndex].name+"</small>";
+
+function showStory() {
+  document.getElementById("storyContent").innerHTML =
+    "<div>" + stories[storyIndex].text + "</div>" +
+    "<small style='display:block;margin-top:18px;color:#888'>" +
+    stories[storyIndex].name + "</small>";
 }
-function closeStory(){document.getElementById("viewer").classList.remove("show")}
-function nextStory(){storyIndex=(storyIndex+1)%stories.length;showStory()}
-function prevStory(){storyIndex=(storyIndex-1+stories.length)%stories.length;showStory()}
-function filterChats(){
-  const q=document.getElementById("search").value.toLowerCase();
-  document.querySelectorAll(".chat").forEach(c=>{
-    c.style.display=c.dataset.name.toLowerCase().includes(q)?"flex":"none";
+
+function closeStory() {
+  document.getElementById("viewer").classList.remove("show");
+}
+
+function nextStory() {
+  storyIndex = (storyIndex + 1) % stories.length;
+  showStory();
+}
+
+function prevStory() {
+  storyIndex = (storyIndex - 1 + stories.length) % stories.length;
+  showStory();
+}
+
+function filterChats() {
+  const q = document.getElementById("search").value.toLowerCase();
+
+  document.querySelectorAll(".chat").forEach(c => {
+    c.style.display = c.dataset.name.toLowerCase().includes(q)
+      ? "flex"
+      : "none";
   });
 }
-function setTab(btn,name){
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+
+function setTab(btn, name) {
+  document.querySelectorAll(".nav button").forEach(b => {
+    b.classList.remove("active");
+  });
+
   btn.classList.add("active");
-  if(name!=="Чаты")alert(name+" — пока демонстрационный раздел");
+
+  if (name !== "Чаты") {
+    alert(name + " — пока демонстрационный раздел");
+  }
 }
 </script>
 </body>
-</html>
+  </html>
