@@ -2,426 +2,617 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zuno</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ background:
+ radial-gradient(ellipse at 15% 0%,rgba(255,220,150,.12),transparent 45%),
+ #080809;
+ color:#fff;
+ font-family:Arial,sans-serif;
 }
 
-:root {
-  --panel: rgba(255, 255, 255, 0.025);
-  --line: rgba(255, 245, 220,  0.18);
-  --muted: #b5b3b0;
+.app{
+ max-width:600px;
+ margin:auto;
+ min-height:100vh;
+ padding:20px 16px 110px;
 }
 
-body {
-  margin: 0;
-  background:
-    radial-gradient(ellipse at 15% 0%, rgba(255, 220, 150, 0.10), transparent 45%),
-    #080809;
-  color: #f7f7f8;
-  font-family: Arial, sans-serif;
+header{
+ display:flex;
+ align-items:center;
+ gap:14px;
+ margin:8px 0 25px;
 }
 
-.app {
-  max-width: 600px;
-  margin: auto;
-  min-height: 100vh;
-  padding: 18px 16px 110px;
+h1{font-size:27px;margin:0}
+
+.stories{
+ display:flex;
+ gap:10px;
+ overflow-x:auto;
+ flex:1;
+ scrollbar-width:none;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 8px 0 24px;
+.story{
+ flex:0 0 48px;
+ text-align:center;
+ font-size:11px;
+ color:#ddd;
+ cursor:pointer;
 }
 
-h1 {
-  font-size: 27px;
-  margin: 0;
-  font-weight: 700;
-  letter-spacing: -0.7px;
+.avatar{
+ width:46px;
+ height:46px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ background:linear-gradient(135deg,
+ rgba(255,244,210,.18),
+ rgba(255,255,255,.035),
+ rgba(255,218,150,.12));
+ border:1px solid rgba(255,245,220,.22);
+ font-size:20px;
+ margin:0 auto 5px;
+ backdrop-filter:blur(12px);
 }
 
-.stories {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  flex: 1;
-  scrollbar-width: none;
+.search{
+ width:100%;
+ padding:14px 16px;
+ border-radius:16px;
+ background:rgba(255,255,255,.045);
+ border:1px solid rgba(255,245,220,.18);
+ color:white;
+ font-size:15px;
+ outline:none;
+ margin-bottom:20px;
+ backdrop-filter:blur(15px);
 }
 
-.stories::-webkit-scrollbar {
-  display: none;
+.search::placeholder{color:#aaa}
+
+.section-title{
+ font-size:13px;
+ color:#aaa69e;
+ margin:0 0 12px 4px;
 }
 
-.story {
-  flex: 0 0 48px;
-  text-align: center;
-  font-size: 11px;
-  color: #ded9ce;
-  cursor: pointer;
+.chat,.setting-card,.profile-card{
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding:15px;
+ margin-bottom:10px;
+ border-radius:18px;
+ background:linear-gradient(135deg,
+ rgba(255,244,210,.14),
+ rgba(255,255,255,.025) 48%,
+ rgba(255,218,150,.09));
+ border:1px solid rgba(255,245,220,.19);
+ backdrop-filter:blur(14px);
+ -webkit-backdrop-filter:blur(14px);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
 }
 
-.avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 244, 210, 0.15),
-    rgba(255, 255, 255, 0.025),
-    rgba(255, 218, 150, 0.09)
-  );
-  border: 1px solid rgba(255, 245, 220, 0.20);
-  font-size: 20px;
-  margin: 0 auto 5px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 0 18px rgba(255, 210, 130, 0.06);
+.chat:active,.setting-card:active{
+ transform:translateY(-2px);
 }
 
-.story:first-child .avatar {
-  border: 1px dashed rgba(255, 245, 220, 0.45);
+.chat-info,.setting-info{flex:1;min-width:0}
+
+.chat-name,.setting-name{
+ font-size:15px;
+ font-weight:600;
 }
 
-.search {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 15px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 244, 210, 0.13),
-    rgba(255, 255, 255, 0.025) 50%,
-    rgba(255, 218, 150, 0.08)
-  );
-  border: 1px solid rgba(255, 245, 220, 0.18);
-  color: white;
-  font-size: 15px;
-  outline: none;
-  margin-bottom: 18px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+.last-message,.setting-desc{
+ font-size:12px;
+ color:#aaa69e;
+ margin-top:5px;
 }
 
-.search::placeholder {
-  color: #aaa69e;
+.setting-icon{
+ width:43px;
+ height:43px;
+ display:grid;
+ place-items:center;
+ border-radius:14px;
+ background:rgba(255,255,255,.07);
+ font-size:21px;
 }
 
-.section-title {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0 0 10px 4px;
+.arrow{color:#aaa;font-size:20px}
+
+.page{display:none}
+.page.active{display:block}
+
+.profile-card{
+ padding:19px;
+ margin-bottom:22px;
 }
 
-.chat {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 13px 11px;
-  margin-bottom: 7px;
-  border-radius: 16px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 244, 210, 0.13),
-    rgba(255, 255, 255, 0.025) 48%,
-    rgba(255, 218, 150, 0.08)
-  );
-  border: 1px solid rgba(255, 245, 220, 0.17);
-  cursor: pointer;
-  transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 0 22px rgba(255, 210, 130, 0.035);
+.profile-avatar{
+ width:58px;
+ height:58px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ font-size:27px;
+ background:rgba(255,255,255,.10);
+ border:1px solid rgba(255,245,220,.25);
 }
 
-.chat:active {
-  transform: translateY(-3px);
-  background: rgba(255, 245, 220, 0.12);
-  box-shadow: 0 5px 25px rgba(255, 210, 130, 0.08);
+.profile-name{font-size:18px;font-weight:bold}
+.profile-status{font-size:12px;color:#aaa;margin-top:5px}
+
+.toggle{
+ width:46px;
+ height:26px;
+ border-radius:20px;
+ background:#454545;
+ position:relative;
+ border:0;
+ cursor:pointer;
+ flex-shrink:0;
 }
 
-.chat .avatar {
-  width: 49px;
-  height: 49px;
-  flex-shrink: 0;
-  margin: 0;
-  border: 1px solid rgba(255, 245, 220, 0.13);
+.toggle:after{
+ content:"";
+ position:absolute;
+ width:20px;
+ height:20px;
+ border-radius:50%;
+ background:white;
+ top:3px;
+ left:3px;
+ transition:.2s;
 }
 
-.chat-info {
-  min-width: 0;
-  flex: 1;
+.toggle.on{background:#d6b878}
+.toggle.on:after{left:23px}
+
+.setting-card{cursor:pointer}
+
+.subpage-title{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin-bottom:22px;
 }
 
-.chat-name {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 5px;
+.back{
+ border:0;
+ color:white;
+ background:rgba(255,255,255,.08);
+ border-radius:12px;
+ padding:10px 14px;
+ font-size:18px;
 }
 
-.last-message {
-  font-size: 13px;
-  color: #b2aea6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.subpage-title h2{font-size:21px;margin:0}
+
+.bottom{
+ position:fixed;
+ bottom:calc(12px + env(safe-area-inset-bottom));
+ left:12px;
+ right:12px;
+ max-width:576px;
+ margin:auto;
+ display:flex;
+ justify-content:center;
+ padding:9px;
+ border-radius:25px;
+ background:linear-gradient(135deg,
+ rgba(255,244,210,.17),
+ rgba(255,255,255,.035),
+ rgba(255,218,150,.11));
+ border:1px solid rgba(255,245,220,.23);
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+ box-shadow:0 8px 30px rgba(0,0,0,.3),
+ 0 0 25px rgba(255,210,130,.07);
+ z-index:5;
 }
 
-.time {
-  font-size: 11px;
-  color: #aaa69e;
-  align-self: flex-start;
-  padding-top: 3px;
+.nav{
+ width:100%;
+ display:flex;
+ justify-content:space-around;
 }
 
-/* Плавающая нижняя панель */
-.bottom {
-  position: fixed;
-  bottom: calc(12px + env(safe-area-inset-bottom));
-  left: 12px;
-  right: 12px;
-  display: flex;
-  justify-content: center;
-  padding: 9px 10px;
-  border-radius: 25px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 244, 210, 0.16),
-    rgba(255, 255, 255, 0.035) 48%,
-    rgba(255, 218, 150, 0.10)
-  );
-  border: 1px solid rgba(255, 245, 220, 0.22);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.25),
-    0 0 25px rgba(255, 210, 130, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  z-index: 4;
+.nav button{
+ border:0;
+ background:transparent;
+ color:#aaa69e;
+ font-size:12px;
+ padding:6px 20px;
+ cursor:pointer;
 }
 
-.nav {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  justify-content: space-around;
+.nav button span{
+ display:block;
+ font-size:21px;
+ margin-bottom:4px;
 }
 
-.nav button {
-  border: 0;
-  background: transparent;
-  color: #aaa69e;
-  font-size: 12px;
-  padding: 7px 22px;
-  cursor: pointer;
+.nav button.active{color:#fff3d9}
+
+.viewer{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#050506;
+ z-index:10;
+ align-items:center;
+ justify-content:center;
+ flex-direction:column;
 }
 
-.nav button span {
-  display: block;
-  font-size: 21px;
-  margin-bottom: 4px;
-}
+.viewer.show{display:flex}
 
-.nav button.active {
-  color: #fff7e7;
-}
-
-.viewer {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #050506;
-  z-index: 5;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.viewer.show {
-  display: flex;
-}
-
-.story-content {
-  font-size: 26px;
-  text-align: center;
-}
-
-.viewer-close {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  background: none;
-  border: 0;
-  color: white;
-  font-size: 30px;
-}
-
-.viewer-controls {
-  display: flex;
-  gap: 22px;
-  margin-top: 28px;
-}
-
-.viewer-controls button {
-  background: #202025;
-  color: white;
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 10px 18px;
+.viewer-close{
+ position:absolute;
+ top:22px;
+ right:22px;
+ background:none;
+ border:0;
+ color:white;
+ font-size:30px;
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
-  <header>
-    <h1>Чаты</h1>
 
-    <div class="stories">
-      <div class="story" onclick="openStory(0)">
-        <div class="avatar">＋</div>Моя
-      </div>
-      <div class="story" onclick="openStory(1)">
-        <div class="avatar">👨</div>Алекс
-      </div>
-      <div class="story" onclick="openStory(2)">
-        <div class="avatar">👩</div>Мария
-      </div>
-      <div class="story" onclick="openStory(3)">
-        <div class="avatar">🧑</div>Илья
-      </div>
-    </div>
-  </header>
+<!-- ЧАТЫ -->
+<section class="page active" id="chatsPage">
 
-  <input
-    class="search"
-    id="search"
-    placeholder="Поиск"
-    oninput="filterChats()"
-  >
+<header>
+<h1>Чаты</h1>
 
-  <div class="section-title">Недавние</div>
+<div class="stories">
+<div class="story" onclick="openStory('Моя история')">
+<div class="avatar">＋</div>Моя
+</div>
+<div class="story" onclick="openStory('История Алекса')">
+<div class="avatar">👨</div>Алекс
+</div>
+<div class="story" onclick="openStory('История Марии')">
+<div class="avatar">👩</div>Мария
+</div>
+<div class="story" onclick="openStory('История Ильи')">
+<div class="avatar">🧑</div>Илья
+</div>
+</div>
+</header>
 
-  <div id="chats">
-    <div class="chat" data-name="Алекс">
-      <div class="avatar">👨</div>
-      <div class="chat-info">
-        <div class="chat-name">Алекс</div>
-        <div class="last-message">Привет! Как дела?</div>
-      </div>
-      <div class="time">12:40</div>
-    </div>
+<input class="search" id="search"
+placeholder="Поиск"
+oninput="filterChats()">
 
-    <div class="chat" data-name="Мария">
-      <div class="avatar">👩</div>
-      <div class="chat-info">
-        <div class="chat-name">Мария</div>
-        <div class="last-message">Отправила тебе фото</div>
-      </div>
-      <div class="time">12:15</div>
-    </div>
+<div class="section-title">Недавние</div>
 
-    <div class="chat" data-name="Илья">
-      <div class="avatar">🧑</div>
-      <div class="chat-info">
-        <div class="chat-name">Илья</div>
-        <div class="last-message">Увидимся вечером</div>
-      </div>
-      <div class="time">Вчера</div>
-    </div>
-  </div>
+<div id="chats">
+<div class="chat" data-name="Алекс">
+<div class="avatar">👨</div>
+<div class="chat-info">
+<div class="chat-name">Алекс</div>
+<div class="last-message">Привет! Как дела?</div>
+</div>
 </div>
 
+<div class="chat" data-name="Мария">
+<div class="avatar">👩</div>
+<div class="chat-info">
+<div class="chat-name">Мария</div>
+<div class="last-message">Отправила тебе фото</div>
+</div>
+</div>
+
+<div class="chat" data-name="Илья">
+<div class="avatar">🧑</div>
+<div class="chat-info">
+<div class="chat-name">Илья</div>
+<div class="last-message">Увидимся вечером</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ЗВОНКИ -->
+<section class="page" id="callsPage">
+<header><h1>Звонки</h1></header>
+
+<div class="setting-card">
+<div class="setting-icon">📞</div>
+<div class="setting-info">
+<div class="setting-name">Звонки</div>
+<div class="setting-desc">Здесь будут твои звонки</div>
+</div>
+</div>
+</section>
+
+<!-- НАСТРОЙКИ -->
+<section class="page" id="settingsPage">
+
+<header><h1>Настройки</h1></header>
+
+<div class="profile-card">
+<div class="profile-avatar">👤</div>
+<div class="setting-info">
+<div class="profile-name">Пользователь Zuno</div>
+<div class="profile-status">Мой профиль</div>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="section-title">АККАУНТ</div>
+
+<div class="setting-card" onclick="openSetting('profile')">
+<div class="setting-icon">👤</div>
+<div class="setting-info">
+<div class="setting-name">Профиль</div>
+<div class="setting-desc">Имя, фотография и статус</div>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="section-title">ВНЕШНИЙ ВИД</div>
+
+<div class="setting-card" onclick="openSetting('appearance')">
+<div class="setting-icon">🎨</div>
+<div class="setting-info">
+<div class="setting-name">Оформление</div>
+<div class="setting-desc">Внешний вид приложения</div>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="section-title">УВЕДОМЛЕНИЯ</div>
+
+<div class="setting-card">
+<div class="setting-icon">🔔</div>
+<div class="setting-info">
+<div class="setting-name">Уведомления</div>
+<div class="setting-desc">Включить уведомления</div>
+</div>
+<button class="toggle on" onclick="toggleSwitch(this)"></button>
+</div>
+
+<div class="section-title">КОНФИДЕНЦИАЛЬНОСТЬ</div>
+
+<div class="setting-card" onclick="openSetting('privacy')">
+<div class="setting-icon">🔒</div>
+<div class="setting-info">
+<div class="setting-name">Конфиденциальность</div>
+<div class="setting-desc">Безопасность и приватность</div>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="section-title">ЧАТЫ</div>
+
+<div class="setting-card" onclick="openSetting('chatsettings')">
+<div class="setting-icon">💬</div>
+<div class="setting-info">
+<div class="setting-name">Настройки чатов</div>
+<div class="setting-desc">Сообщения и параметры чатов</div>
+</div>
+<div class="arrow">›</div>
+</div>
+
+<div class="section-title">ИНФОРМАЦИЯ</div>
+
+<div class="setting-card" onclick="openSetting('about')">
+<div class="setting-icon">ℹ️</div>
+<div class="setting-info">
+<div class="setting-name">О приложении</div>
+<div class="setting-desc">Zuno · Версия 1.0</div>
+</div>
+<div class="arrow">›</div>
+</div>
+
+</section>
+
+<!-- ВЛОЖЕННЫЕ СТРАНИЦЫ НАСТРОЕК -->
+<section class="page" id="detailPage">
+<div class="subpage-title">
+<button class="back" onclick="backSettings()">‹</button>
+<h2 id="detailTitle">Настройки</h2>
+</div>
+<div id="detailContent"></div>
+</section>
+
+</div>
+
+<!-- НИЖНЯЯ ПАНЕЛЬ -->
 <nav class="bottom">
-  <div class="nav">
-    <button class="active" onclick="setTab(this,'Чаты')">
-      <span>▣</span>Чаты
-    </button>
-    <button onclick="setTab(this,'Звонки')">
-      <span>⌕</span>Звонки
-    </button>
-    <button onclick="setTab(this,'Настройки')">
-      <span>⚙</span>Настройки
-    </button>
-  </div>
+<div class="nav">
+<button class="active" onclick="showPage('chatsPage',this)">
+<span>▣</span>Чаты
+</button>
+<button onclick="showPage('callsPage',this)">
+<span>⌕</span>Звонки
+</button>
+<button onclick="showPage('settingsPage',this)">
+<span>⚙</span>Настройки
+</button>
+</div>
 </nav>
 
 <div class="viewer" id="viewer">
-  <button class="viewer-close" onclick="closeStory()">×</button>
-  <div class="story-content" id="storyContent"></div>
-  <div class="viewer-controls">
-    <button onclick="prevStory()">← Назад</button>
-    <button onclick="nextStory()">Вперёд →</button>
-  </div>
+<button class="viewer-close" onclick="closeStory()">×</button>
+<div id="storyText"></div>
 </div>
 
 <script>
-const stories = [
-  {name: "Моя история", text: "Добавь свою историю"},
-  {name: "Алекс", text: "Привет 👋"},
-  {name: "Мария", text: "Хорошего дня ✨"},
-  {name: "Илья", text: "На связи!"}
-];
+function showPage(id,button){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
 
-let storyIndex = 0;
-
-function openStory(i) {
-  storyIndex = i;
-  showStory();
-  document.getElementById("viewer").classList.add("show");
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ button.classList.add('active');
 }
 
-function showStory() {
-  document.getElementById("storyContent").innerHTML =
-    "<div>" + stories[storyIndex].text + "</div>" +
-    "<small style='display:block;margin-top:18px;color:#888'>" +
-    stories[storyIndex].name + "</small>";
+function toggleSwitch(button){
+ button.classList.toggle('on');
 }
 
-function closeStory() {
-  document.getElementById("viewer").classList.remove("show");
+function filterChats(){
+ let q=document.getElementById('search').value.toLowerCase();
+
+ document.querySelectorAll('.chat').forEach(chat=>{
+ chat.style.display=chat.dataset.name.toLowerCase().includes(q)?'flex':'none';
+ });
 }
 
-function nextStory() {
-  storyIndex = (storyIndex + 1) % stories.length;
-  showStory();
+function openStory(name){
+ document.getElementById('storyText').innerHTML=
+ '<div style="font-size:25px;text-align:center">'+name+'</div>';
+ document.getElementById('viewer').classList.add('show');
 }
 
-function prevStory() {
-  storyIndex = (storyIndex - 1 + stories.length) % stories.length;
-  showStory();
+function closeStory(){
+ document.getElementById('viewer').classList.remove('show');
 }
 
-function filterChats() {
-  const q = document.getElementById("search").value.toLowerCase();
-
-  document.querySelectorAll(".chat").forEach(c => {
-    c.style.display = c.dataset.name.toLowerCase().includes(q)
-      ? "flex"
-      : "none";
-  });
+function backSettings(){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById('settingsPage').classList.add('active');
 }
 
-function setTab(btn, name) {
-  document.querySelectorAll(".nav button").forEach(b => {
-    b.classList.remove("active");
-  });
+function openSetting(type){
+ let title='';
+ let content='';
 
-  btn.classList.add("active");
+ if(type==='profile'){
+ title='Профиль';
+ content=`
+ <div class="setting-card">
+ <div class="setting-icon">👤</div>
+ <div class="setting-info">
+ <div class="setting-name">Фотография профиля</div>
+ <div class="setting-desc">Изменить фотографию</div>
+ </div>
+ <div class="arrow">›</div>
+ </div>
+ <div class="setting-card">
+ <div class="setting-info">
+ <div class="setting-name">Имя</div>
+ <input placeholder="Твоё имя" style="margin-top:10px;padding:10px;background:rgba(255,255,255,.08);border:1px solid #555;border-radius:10px;color:white;width:100%">
+ </div>
+ </div>
+ <div class="setting-card">
+ <div class="setting-info">
+ <div class="setting-name">Статус</div>
+ <input placeholder="Напиши о себе" style="margin-top:10px;padding:10px;background:rgba(255,255,255,.08);border:1px solid #555;border-radius:10px;color:white;width:100%">
+ </div>
+ </div>`;
+ }
 
-  if (name !== "Чаты") {
-    alert(name + " — пока демонстрационный раздел");
-  }
+ if(type==='appearance'){
+ title='Оформление';
+ content=`
+ <div class="setting-card">
+ <div class="setting-icon">🌙</div>
+ <div class="setting-info">
+ <div class="setting-name">Тёмная тема</div>
+ <div class="setting-desc">Тёмное оформление Zuno</div>
+ </div>
+ <button class="toggle on" onclick="toggleSwitch(this)"></button>
+ </div>
+ <div class="setting-card">
+ <div class="setting-icon">✨</div>
+ <div class="setting-info">
+ <div class="setting-name">Стеклянный эффект</div>
+ <div class="setting-desc">Прозрачные панели и блики</div>
+ </div>
+ <button class="toggle on" onclick="toggleSwitch(this)"></button>
+ </div>`;
+ }
+
+ if(type==='privacy'){
+ title='Конфиденциальность';
+ content=`
+ <div class="setting-card">
+ <div class="setting-icon">🟢</div>
+ <div class="setting-info">
+ <div class="setting-name">Статус онлайн</div>
+ <div class="setting-desc">Показывать, когда я в сети</div>
+ </div>
+ <button class="toggle on" onclick="toggleSwitch(this)"></button>
+ </div>
+ <div class="setting-card">
+ <div class="setting-icon">👁️</div>
+ <div class="setting-info">
+ <div class="setting-name">Прочитанные сообщения</div>
+ <div class="setting-desc">Показывать отметку о прочтении</div>
+ </div>
+ <button class="toggle on" onclick="toggleSwitch(this)"></button>
+ </div>`;
+ }
+
+ if(type==='chatsettings'){
+ title='Настройки чатов';
+ content=`
+ <div class="setting-card">
+ <div class="setting-icon">🔔</div>
+ <div class="setting-info">
+ <div class="setting-name">Звуки сообщений</div>
+ <div class="setting-desc">Звук при получении сообщений</div>
+ </div>
+ <button class="toggle on" onclick="toggleSwitch(this)"></button>
+ </div>
+ <div class="setting-card">
+ <div class="setting-icon">💬</div>
+ <div class="setting-info">
+ <div class="setting-name">Предпросмотр сообщений</div>
+ <div class="setting-desc">Показывать текст сообщений</div>
+ </div>
+ <button class="toggle on" onclick="toggleSwitch(this)"></button>
+ </div>`;
+ }
+
+ if(type==='about'){
+ title='О приложении';
+ content=`
+ <div class="profile-card" style="flex-direction:column;text-align:center">
+ <div style="font-size:55px">💬</div>
+ <div class="profile-name">Zuno</div>
+ <div class="profile-status">Твой мир общения</div>
+ </div>
+ <div class="setting-card">
+ <div class="setting-info">
+ <div class="setting-name">Версия приложения</div>
+ <div class="setting-desc">1.0</div>
+ </div>
+ </div>
+ <div class="setting-card">
+ <div class="setting-info">
+ <div class="setting-name">Создатель</div>
+ <div class="setting-desc">Команда Zuno</div>
+ </div>
+ </div>`;
+ }
+
+ document.getElementById('detailTitle').textContent=title;
+ document.getElementById('detailContent').innerHTML=content;
+
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById('detailPage').classList.add('active');
 }
 </script>
+
 </body>
-  </html>
+</html>
