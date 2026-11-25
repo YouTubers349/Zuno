@@ -50,7 +50,6 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
       <div class="story" onclick="openStory(3)"><div class="avatar">🧑</div>Илья</div>
     </div>
   </header>
-
   <input class="search" id="search" placeholder="Поиск" oninput="filterChats()">
   <div class="section-title">Недавние</div>
   <div id="chats">
@@ -59,7 +58,6 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
     <div class="chat" data-name="Илья"><div class="avatar">🧑</div><div class="chat-info"><div class="chat-name">Илья</div><div class="last-message">Увидимся вечером</div></div><div class="time">Вчера</div></div>
   </div>
 </div>
-
 <nav class="bottom">
   <div class="nav">
     <button class="active" onclick="setTab(this,'Чаты')"><span>▣</span>Чаты</button>
@@ -67,7 +65,6 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
     <button onclick="setTab(this,'Настройки')"><span>⚙</span>Настройки</button>
   </div>
 </nav>
-
 <div class="viewer" id="viewer">
   <button class="viewer-close" onclick="closeStory()">×</button>
   <div class="story-content" id="storyContent"></div>
@@ -76,7 +73,6 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
     <button onclick="nextStory()">Вперёд →</button>
   </div>
 </div>
-
 <script>
 const stories=[
   {name:"Моя история",text:"Добавь свою историю"},
