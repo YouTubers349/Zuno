@@ -6,11 +6,7 @@
 <title>Zuno</title>
 <style>
 *{box-sizing:border-box}
-:root{
-  --panel:rgba(255,255,255,.105);
-  --line:rgba(255,255,255,.19);
-  --muted:#a5a5af;
-}
+:root{--panel:rgba(255,255,255,.045);--line:rgba(255,255,255,.075);--muted:#92929b}
 body{margin:0;background:#080809;color:#f7f7f8;font-family:Arial,sans-serif}
 .app{max-width:600px;margin:auto;min-height:100vh;padding:18px 16px 90px}
 header{display:flex;align-items:center;gap:14px;margin:8px 0 24px}
@@ -20,17 +16,17 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
 .story{flex:0 0 48px;text-align:center;font-size:11px;color:#c5c5cc;cursor:pointer}
 .avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#19191d;border:1px solid #303036;font-size:20px;margin:0 auto 5px}
 .story:first-child .avatar{border:1px dashed #777}
-.search{width:100%;padding:14px 16px;border-radius:15px;background:var(--panel);border:1px solid var(--line);color:white;font-size:15px;outline:none;margin-bottom:18px;box-shadow:0 0 14px rgba(255,255,255,.025)}
-.search::placeholder{color:#92929b}
+.search{width:100%;padding:14px 16px;border-radius:15px;background:var(--panel);border:1px solid var(--line);color:white;font-size:15px;outline:none;margin-bottom:18px}
+.search::placeholder{color:#777780}
 .section-title{font-size:13px;color:var(--muted);margin:0 0 10px 4px}
-.chat{display:flex;align-items:center;gap:13px;padding:13px 11px;margin-bottom:7px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:0 0 16px rgba(255,255,255,.035);cursor:pointer;transition:transform .18s,background .18s,box-shadow .18s}
-.chat:active{transform:translateY(-3px);background:rgba(255,255,255,.15);box-shadow:0 0 20px rgba(255,255,255,.07)}
+.chat{display:flex;align-items:center;gap:13px;padding:13px 11px;margin-bottom:7px;border-radius:16px;background:var(--panel);border:1px solid var(--line);cursor:pointer;transition:transform .18s,background .18s}
+.chat:active{transform:translateY(-3px);background:rgba(255,255,255,.07)}
 .chat .avatar{width:49px;height:49px;flex-shrink:0;margin:0;background:#202025;border:0}
 .chat-info{min-width:0;flex:1}
 .chat-name{font-size:15px;font-weight:600;margin-bottom:5px}
-.last-message{font-size:13px;color:#a1a1ab;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.time{font-size:11px;color:#888891;align-self:flex-start;padding-top:3px}
-.bottom{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:rgba(8,8,9,.96);border-top:1px solid #1b1b20;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+.last-message{font-size:13px;color:#92929b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time{font-size:11px;color:#777780;align-self:flex-start;padding-top:3px}
+.bottom{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:rgba(8,8,9,.97);border-top:1px solid #1b1b20;padding:10px 12px calc(10px + env(safe-area-inset-bottom));}
 .nav{width:100%;max-width:600px;display:flex;justify-content:space-around}
 .nav button{border:0;background:transparent;color:#85858f;font-size:12px;padding:7px 22px;cursor:pointer}
 .nav button span{display:block;font-size:21px;margin-bottom:4px}
@@ -57,23 +53,10 @@ h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.7px}
 
   <input class="search" id="search" placeholder="Поиск" oninput="filterChats()">
   <div class="section-title">Недавние</div>
-
   <div id="chats">
-    <div class="chat" data-name="Алекс">
-      <div class="avatar">👨</div>
-      <div class="chat-info"><div class="chat-name">Алекс</div><div class="last-message">Привет! Как дела?</div></div>
-      <div class="time">12:40</div>
-    </div>
-    <div class="chat" data-name="Мария">
-      <div class="avatar">👩</div>
-      <div class="chat-info"><div class="chat-name">Мария</div><div class="last-message">Отправила тебе фото</div></div>
-      <div class="time">12:15</div>
-    </div>
-    <div class="chat" data-name="Илья">
-      <div class="avatar">🧑</div>
-      <div class="chat-info"><div class="chat-name">Илья</div><div class="last-message">Увидимся вечером</div></div>
-      <div class="time">Вчера</div>
-    </div>
+    <div class="chat" data-name="Алекс"><div class="avatar">👨</div><div class="chat-info"><div class="chat-name">Алекс</div><div class="last-message">Привет! Как дела?</div></div><div class="time">12:40</div></div>
+    <div class="chat" data-name="Мария"><div class="avatar">👩</div><div class="chat-info"><div class="chat-name">Мария</div><div class="last-message">Отправила тебе фото</div></div><div class="time">12:15</div></div>
+    <div class="chat" data-name="Илья"><div class="avatar">🧑</div><div class="chat-info"><div class="chat-name">Илья</div><div class="last-message">Увидимся вечером</div></div><div class="time">Вчера</div></div>
   </div>
 </div>
 
@@ -102,30 +85,13 @@ const stories=[
   {name:"Илья",text:"На связи!"}
 ];
 let storyIndex=0;
-
-function openStory(i){
-  storyIndex=i;
-  showStory();
-  document.getElementById("viewer").classList.add("show");
-}
-function showStory(){
-  document.getElementById("storyContent").innerHTML=
-    "<div>"+stories[storyIndex].text+"</div><small style='display:block;margin-top:18px;color:#888'>"+stories[storyIndex].name+"</small>";
-}
+function openStory(i){storyIndex=i;showStory();document.getElementById("viewer").classList.add("show")}
+function showStory(){document.getElementById("storyContent").innerHTML="<div>"+stories[storyIndex].text+"</div><small style='display:block;margin-top:18px;color:#888'>"+stories[storyIndex].name+"</small>"}
 function closeStory(){document.getElementById("viewer").classList.remove("show")}
 function nextStory(){storyIndex=(storyIndex+1)%stories.length;showStory()}
 function prevStory(){storyIndex=(storyIndex-1+stories.length)%stories.length;showStory()}
-function filterChats(){
-  const q=document.getElementById("search").value.toLowerCase();
-  document.querySelectorAll(".chat").forEach(c=>{
-    c.style.display=c.dataset.name.toLowerCase().includes(q)?"flex":"none";
-  });
-}
-function setTab(btn,name){
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  if(name!=="Чаты")alert(name+" — пока демонстрационный раздел");
-}
+function filterChats(){const q=document.getElementById("search").value.toLowerCase();document.querySelectorAll(".chat").forEach(c=>c.style.display=c.dataset.name.toLowerCase().includes(q)?"flex":"none")}
+function setTab(btn,name){document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");if(name!=="Чаты")alert(name+" — пока демонстрационный раздел")}
 </script>
 </body>
 </html>
